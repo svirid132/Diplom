@@ -39,6 +39,15 @@ float MathLogic::calcStockRatio(float sampleHeight, float height, float maxImpul
     return calcValue;
 }
 
+CriticalPoint MathLogic::calcCriticalPoint(float sampleHeight, float height, float maxImpulse, float zeroImpulse)
+{
+    float sampleHeightOnHeight_touch = sampleHeight / height * 20 + 1;
+    float maxImpulseOnZeroImpulse = maxImpulse / zeroImpulse;
+
+    const CriticalPoint criticalPoint = {sampleHeightOnHeight_touch, maxImpulseOnZeroImpulse};
+    return criticalPoint;
+}
+
 void MathLogic::setUserSettings(float sampleHeight, float height) {
     this->sampleHeight = sampleHeight;
     this->height = height;

@@ -28,6 +28,7 @@ private:
 private slots:
     void initTestCase();
     void maxValue();
+    void crititcalPoint();
     void calcStockRatio();
     void handleImpulsesData();
     void handleFindMaxXFromY();
@@ -82,6 +83,12 @@ void MathLogicTest::calcStockRatio()
 {
      float value = MathLogic::calcStockRatio(float(0.263157895), float(4.5), float(2500), float(588));
      QCOMPARE(round(value), round(float(1.710827716)));
+}
+
+void MathLogicTest::crititcalPoint() {
+    CriticalPoint point = MathLogic::calcCriticalPoint(float(0.263157895), float(4.5), float(2500), float(588));
+    QCOMPARE(round(point.sampleHeightOnHeight_touch), round(float(2.169590643)));
+    QCOMPARE(round(point.maxImpulseOnZeroImpulse), round(float(4.25170068)));
 }
 
 
