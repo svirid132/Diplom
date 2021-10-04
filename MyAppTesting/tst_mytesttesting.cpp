@@ -3,7 +3,7 @@
 
 // add necessary includes here
 
-#include "func/sum.cpp"
+//#include "func/sum.cpp"
 
 class MyTestTesting : public QObject
 {
@@ -42,9 +42,8 @@ void MyTestTesting::cleanupTestCase()
 
 void MyTestTesting::test_case1()
 {
-    QCOMPARE(sum(2, 3), 5);
+//    QCOMPARE(sum(2, 3), 5);
 }
 
 QTEST_MAIN(MyTestTesting)
-
 #include "tst_mytesttesting.moc"

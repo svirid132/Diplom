@@ -1,2 +1,2 @@
 INCLUDEPATH += $$PWD/MyApp_console
-SRC_DIR = $$PWD
+#SRC_DIR = $$PWD

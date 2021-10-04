@@ -16,7 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        sum.cpp
+        func/sum.cpp
 
 #include(./MyApp_consoleSrc.pri)
 
