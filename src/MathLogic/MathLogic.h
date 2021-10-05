@@ -25,7 +25,7 @@ struct CalculedVals {
     ConstLists constList;
     CalculedLists calcList;
     CriticalPoint criticalPoint;
-    float X1onh;
+    float X1Onh;
     QString category;
     int N0;// 1 impulse
     int Nmax;// maxImpulse
@@ -34,20 +34,21 @@ struct CalculedVals {
 };
 
 class MathLogic {
-    CalculedVals calculedVals;
-
 public:
     static float maxValue(const float* array, int length);
     static float findXFromMaxY(const float* Xs, const float* Ys, int length);
     static float calcStrockRation(float Lsh, float h, float Nmax, float N0);
     static CriticalPoint calcCriticalPoint(float X1onh, float NmaxOnN0);
+    static float calcIndexCategory(float X1Onh);
 
-    MathLogic() {};
+    MathLogic();
     void handleSettings(float sampleHeight, float height, const float *array, int lenght);
 
     CalculedVals getCalculedVals() { return calculedVals; }
 
 private:
+    CalculedVals calculedVals;
+
     //Input
     float Lsh;
     float h;

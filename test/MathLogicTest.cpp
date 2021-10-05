@@ -26,10 +26,14 @@ private:
     MathLogic* logic;
 
 private slots:
+    //static
     void initTestCase();
     void maxValue();
     void crititcalPoint();
     void calcStockRatio();
+    void calcIndexCategory();
+
+    //default method from class
     void handleImpulsesData();
     void handleFindMaxXFromY();
 //    void cleanupTestCase();
@@ -67,7 +71,7 @@ void MathLogicTest::handleImpulsesData() {
 
     QCOMPARE(round(checkRusults.NmaxOnN0), round(4.251700));
 
-    QCOMPARE(round(checkRusults.X1onh), round(0.111111));
+    QCOMPARE(round(checkRusults.X1Onh), round(0.111111));
 }
 
 void MathLogicTest::handleFindMaxXFromY()
@@ -88,6 +92,12 @@ void MathLogicTest::calcStockRatio()
 {
      float value = MathLogic::calcStrockRation(float(0.263157895), float(4.5), float(2500), float(588));
      QCOMPARE(round(value), round(float(1.710827716)));
+}
+
+void MathLogicTest::calcIndexCategory()
+{
+    float calcValue = MathLogic::calcIndexCategory(float(0.05848));
+    QCOMPARE(round(calcValue), round(float(7.2739274)));
 }
 
 void MathLogicTest::crititcalPoint() {

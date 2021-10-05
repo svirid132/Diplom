@@ -3,6 +3,24 @@
 #include <QDebug>
 #include <cmath>
 
+MathLogic::MathLogic() {
+    //const value for graphics
+    float* constList_X1Onh = new float[20];
+    float* constList_NmaxOnN0 = new float[20];
+
+    for (int i = 0; i < 20; ++i) {
+        constList_X1Onh[i] = i * 0.05;
+        constList_NmaxOnN0[i] =
+                4.8 * std::pow(constList_X1Onh[i], 3) +
+                14.0229 * std::pow(constList_X1Onh[i], 2) -
+                1.5029 * constList_X1Onh[i] + 7.3129;
+    }
+
+    calculedVals.constList.constList_X1Onh = constList_X1Onh;
+    calculedVals.constList.constList_NmaxOnN0 = constList_NmaxOnN0;
+    calculedVals.constList.length = 20;
+}
+
 float MathLogic::maxValue(float const* array, int length) {
     float max = 0;
     for (int i = 0; i < length; ++i) {
@@ -47,6 +65,14 @@ CriticalPoint MathLogic::calcCriticalPoint(float X1onh, float NmaxOnN0)
     return criticalPoint;
 }
 
+float MathLogic::calcIndexCategory(float X1Onh) {
+    float calcVal =
+            float(4.8) * std::pow(X1Onh, 3) +
+            float(14.0229) * std::pow(X1Onh, 2) -
+            float(1.5029)*X1Onh + float(7.3129);
+    return calcVal;
+}
+
 void MathLogic::handleSettings(float Lsh, float h, const float *impulses, int measurementsLenght) {
     this->Lsh = Lsh;
     this->h = h;
@@ -73,11 +99,14 @@ void MathLogic::handleImpulses(const float *impulses, int length)
     calculedVals.NmaxOnN0 = float(calculedVals.Nmax / calculedVals.N0);
 
     float X1 = this->findXFromMaxY(calcImpulses, calcDepths, length);;//DepthFromMaxImpulses
-    calculedVals.X1onh = X1 / h;
+    calculedVals.X1Onh = X1 / h;
+
+    float indexCategory = calcIndexCategory(calculedVals.X1Onh);
+    calculedVals.category = calculedVals.NmaxOnN0 > indexCategory ? "ОПАСНО" : "НЕОПАСНО";
 
     calculedVals.strockRation = calcStrockRation(this->Lsh, this->h, calculedVals.Nmax, calculedVals.N0);
 
-    calculedVals.criticalPoint = MathLogic::calcCriticalPoint(calculedVals.X1onh, calculedVals.NmaxOnN0);
+    calculedVals.criticalPoint = MathLogic::calcCriticalPoint(calculedVals.X1Onh, calculedVals.NmaxOnN0);
 }
 
 
