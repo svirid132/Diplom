@@ -13,7 +13,7 @@ float MathLogic::maxValue(float const* array, int length) {
     return max;
 }
 
-float MathLogic::findMaxXFromY(const float *Xs, const float *Ys, int length)
+float MathLogic::findXFromMaxY(const float *Xs, const float *Ys, int length)
 {
     const float maxY = maxValue(Ys, length);
 
@@ -27,56 +27,57 @@ float MathLogic::findMaxXFromY(const float *Xs, const float *Ys, int length)
     return Xs[maxYOnIndex];
 }
 
-float MathLogic::calcStockRatio(float sampleHeight, float height, float maxImpulse, float zeroImpulse)
+float MathLogic::calcStrockRation(float Lsh, float h, float maxImpulse, float zeroImpulse)
 {
-    float sampleHeightOnHeight = sampleHeight / height;
+    float LshOnh = Lsh / h;
     float maxImpulseOnZeroImpulse = maxImpulse / zeroImpulse;
     float calcValue =
-            (float(4.8)*std::pow(sampleHeightOnHeight, 3) +
-            float(14.0229)*pow(sampleHeightOnHeight, 2) -
-            float(1.5029) * sampleHeightOnHeight +
+            (float(4.8)*std::pow(LshOnh, 3) +
+            float(14.0229)*pow(LshOnh, 2) -
+            float(1.5029) * LshOnh +
             float(7.3129)) / maxImpulseOnZeroImpulse;
     return calcValue;
 }
 
-CriticalPoint MathLogic::calcCriticalPoint(float sampleHeight, float height, float maxImpulse, float zeroImpulse)
+CriticalPoint MathLogic::calcCriticalPoint(float X1onh, float NmaxOnN0)
 {
-    float sampleHeightOnHeight_touch = sampleHeight / height * 20 + 1;
-    float maxImpulseOnZeroImpulse = maxImpulse / zeroImpulse;
+    float X1Onh_point = X1onh * 20 + 1;
 
-    const CriticalPoint criticalPoint = {sampleHeightOnHeight_touch, maxImpulseOnZeroImpulse};
+    const CriticalPoint criticalPoint = {X1Onh_point, NmaxOnN0};
     return criticalPoint;
 }
 
-void MathLogic::setUserSettings(float sampleHeight, float height) {
-    this->sampleHeight = sampleHeight;
-    this->height = height;
+void MathLogic::handleSettings(float Lsh, float h, const float *impulses, int measurementsLenght) {
+    this->Lsh = Lsh;
+    this->h = h;
+    handleImpulses(impulses, measurementsLenght);
 }
 
-ArrValues MathLogic::getArrValues() {
-    return this->arrValues;
-}
-
-void MathLogic::setImpulses(const float *array, int lenght)
+void MathLogic::handleImpulses(const float *impulses, int length)
 {
-    float step = this->sampleHeight / float(lenght - 1);
-
-    arrValues = {new float[lenght], new float[lenght], lenght};
-    for (int i = 0; i < lenght; ++i) {
-        arrValues.impulses[i] = array[i];
+    calculedVals.calcList = {new float[length], new float[length], length};
+    float *calcImpulses = calculedVals.calcList.impulses;
+    float *calcDepths = calculedVals.calcList.depths;
+    float step = this->Lsh / float(length - 1);
+    for (int i = 0; i < length; ++i) {
+        calcImpulses[i] = impulses[i];
         if (i == 0){
-            arrValues.depths[0] = 0;
+            calcDepths[0] = 0;
             continue;
         }
-            arrValues.depths[i] = step + arrValues.depths[i - 1];
+            calcDepths[i] = step + calcDepths[i - 1];
     }
 
-    zeroImpulse = array[0];
-    maxImpulse = this->maxValue(array, lenght);
+    calculedVals.N0 = impulses[0];
+    calculedVals.Nmax = this->maxValue(impulses, length);
+    calculedVals.NmaxOnN0 = float(calculedVals.Nmax / calculedVals.N0);
 
-    maxDepthFromImpulses = this->findMaxXFromY(arrValues.impulses, arrValues.depths, lenght);
+    float X1 = this->findXFromMaxY(calcImpulses, calcDepths, length);;//DepthFromMaxImpulses
+    calculedVals.X1onh = X1 / h;
 
-    stockRatio = calcStockRatio(sampleHeight, height, maxImpulse, zeroImpulse);
+    calculedVals.strockRation = calcStrockRation(this->Lsh, this->h, calculedVals.Nmax, calculedVals.N0);
+
+    calculedVals.criticalPoint = MathLogic::calcCriticalPoint(calculedVals.X1onh, calculedVals.NmaxOnN0);
 }
 
 
