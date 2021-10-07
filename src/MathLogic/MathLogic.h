@@ -1,6 +1,5 @@
 #ifndef MATHLOGIC_H
 #define MATHLOGIC_H
-#include "ArrValues.h"
 
 #include <QString>
 
@@ -35,7 +34,6 @@ struct CalculedVals {
 
 class MathLogic {
 public:
-    static float maxValue(const float* array, int length);
     static float findXFromMaxY(const float* Xs, const float* Ys, int length);
     static float calcStrockRation(float Lsh, float h, float Nmax, float N0);
     static CriticalPoint calcCriticalPoint(float X1onh, float NmaxOnN0);

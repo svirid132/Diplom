@@ -1,4 +1,5 @@
 #include "MathLogic.h"
+#include "MathLogicFunc.cpp"
 
 #include <QDebug>
 #include <cmath>
@@ -21,19 +22,11 @@ MathLogic::MathLogic() {
     calculedVals.constList.length = 20;
 }
 
-float MathLogic::maxValue(float const* array, int length) {
-    float max = 0;
-    for (int i = 0; i < length; ++i) {
-        if (max < array[i]) {
-            max = array[i];
-        }
-    }
-    return max;
-}
+
 
 float MathLogic::findXFromMaxY(const float *Xs, const float *Ys, int length)
 {
-    const float maxY = maxValue(Ys, length);
+    const float maxY = maxValue<float>(Ys, length);
 
     int maxYOnIndex = 0;
     for (int i = 0; i < length; ++i) {
@@ -69,7 +62,8 @@ float MathLogic::calcIndexCategory(float X1Onh) {
     float calcVal =
             float(4.8) * std::pow(X1Onh, 3) +
             float(14.0229) * std::pow(X1Onh, 2) -
-            float(1.5029)*X1Onh + float(7.3129);
+            float(1.5029) * X1Onh +
+            float(7.3129);
     return calcVal;
 }
 
@@ -95,7 +89,7 @@ void MathLogic::handleImpulses(const float *impulses, int length)
     }
 
     calculedVals.N0 = impulses[0];
-    calculedVals.Nmax = this->maxValue(impulses, length);
+    calculedVals.Nmax = maxValue<float>(impulses, length);
     calculedVals.NmaxOnN0 = float(calculedVals.Nmax / calculedVals.N0);
 
     float X1 = this->findXFromMaxY(calcImpulses, calcDepths, length);;//DepthFromMaxImpulses

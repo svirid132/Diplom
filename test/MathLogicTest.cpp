@@ -84,7 +84,7 @@ void MathLogicTest::handleFindMaxXFromY()
 void MathLogicTest::maxValue()
 {
     float array[6] = {2, 4, 10, 32, 12.432, 432423.54};
-    float value = MathLogic::maxValue(array, int(6));
+    float value = MathLogic::maxValue<float>(array, int(6));
     QCOMPARE(value, float(432423.54));
 }
 
