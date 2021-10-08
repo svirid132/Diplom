@@ -1,7 +1,10 @@
-QT -= gui
+#QT -= gui
 
-CONFIG += c++11 console
-CONFIG -= app_bundle
+QT += quick virtualkeyboard
+
+
+CONFIG += c++11
+#CONFIG -= app_bundle
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -39,3 +42,6 @@ test {
     else: unix:!android: target.path = /opt/$${TARGET}/bin
     !isEmpty(target.path): INSTALLS += target
 }
+
+RESOURCES += \
+    qml.qrc
