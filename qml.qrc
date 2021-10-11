@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>qml/content/InputHorizontal.qml</file>
+        <file>qml/assets/arrow_comboBox.svg</file>
+        <file>qml/pages/User.qml</file>
     </qresource>
 </RCC>

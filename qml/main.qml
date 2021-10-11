@@ -1,145 +1,118 @@
 import QtQuick
 import QtQuick.Window
+import QtQuick.Shapes 1.15
 import QtQuick.VirtualKeyboard
 import QtQuick.Controls
 import "content"
+import "pages"
 
 Window {
     id: window
-    width: 1280
-    height: 720
+    width: 1440
+    height: 1026
     visible: true
     title: qsTr("Hello World")
-    color: "gray"
+    color: "#E5E5E5"
 
-    InputHorizontal {
-        y: 20
-        width: (1280 / 2) - 80
-        anchors.horizontalCenter: parent.horizontalCenter
-//        font.pixelSize: 20
+    StackView {
+        id: stack
+        initialItem: user
+        anchors.fill: parent
+
+//        pushEnter: Transition {
+//            PropertyAnimation {
+//                property: "opacity"
+//                from: 0
+//                to:1
+//                duration: 200
+//            }
+//        }
+//        pushExit: Transition {
+//            PropertyAnimation {
+//                property: "opacity"
+//                from: 1
+//                to:0
+//                duration: 200
+//            }
+//        }
+//        popEnter: Transition {
+//            PropertyAnimation {
+//                property: "opacity"
+//                from: 0
+//                to:1
+//                duration: 200
+//            }
+//        }
+//        popExit: Transition {
+//            PropertyAnimation {
+//                property: "opacity"
+//                from: 1
+//                to:0
+//                duration: 200
+//            }
+//        }
     }
 
-    TextInput {
-        id: texting
-        text: "Text"
-        x: 100
-        y: 100
-        width: 100
-        height: 50
-        visible: true
+    Rectangle {
+        id: root
+        anchors.fill: parent
+        state: "red_color"
+
+        states: [
+            State {
+                name: "red_color"
+                PropertyChanges { target: root; color: "red" }
+                PropertyChanges { target: flag; state: "FLAG_DOWN"} //Если требуется другого задеть
+            },
+            State {
+                name: "blue_color"
+                PropertyChanges { target: root; color: "blue" }
+            }
+        ]
     }
 
-//    GroupBox {
-//        id: control
-//        title: "groupBox"
-//        width:  parent.width - 20
-////        font.pixelSize: 21;
-//        anchors.horizontalCenter: parent.horizontalCenter
-//        background: Rectangle {
-//            y: control.topPadding - control.bottomPadding
-//            width: parent.width
-//            height: parent.height - control.topPadding + control.bottomPadding
-//            color: "transparent"
-//            border.color: "#21be2b"
-//            radius: 2
+    Button {
+        x: 200
+        y: 200
+        width: 200
+        height: 30
+//        checkable: true
+
+        //onClicked:
+        onClicked: stack.push(user)
+        onCheckedChanged: {//Только для cheked
+            console.log(checked)
+            root.state = checked ? "blue_color" : "red_color"
+        }
+//        onCheckableChanged: {
+//            root.state = checked ? "blue_color" : "red"
 //        }
+    }
 
-//        label: Label {
-//            x: control.leftPadding
-//            width: control.availableWidth
-//            text: control.title
-//            color: "#21be2b"
-//            elide: Text.ElideRight
+    User {
+        id: user
+        anchors.fill: parent
+        visible: stack.depth == 3
+    }
+
+    Item {
+        id: comp
+        Button{
+            text: "I buuton"
+        }
+
+        Label {
+            id: label
+            x: 200
+            text: stack.depth
+        }
+
+//        Rectangle {
+//            width: 100
+//            height: 100
+//            color: "black"
 //        }
-
-//        Label {
-//            text: "this"
-//        }
-
-////        Row {
-////            width: parent.width
-////            spacing: 10
-////            TextField {
-////                placeholderText: "input text"
-////                width: parent.width / 2 - 5
-////                font.pixelSize: 18;
-////                background: Rectangle {
-////                    border.width: 1
-////                    border.color: "black"
-////                    radius: 5
-////                }
-////            }
-////            TextField {
-////                placeholderText: "input text"
-////                width: parent.width / 2 - 5
-////            }
-////        }
-//    }
-
-//    Grid{
-
-//    }
-
-//    Column {
-//        topPadding: 20
-//        spacing: 20
-//        GroupBox {
-//            id: control
-//            title: qsTr("GroupBox")
-//            y: 100
-//            topPadding: 20
-
-//            background: Rectangle {
-//                y: control.topPadding - control.bottomPadding
-//                width: parent.width
-//                height: parent.height - control.topPadding + control.bottomPadding
-//                color: "transparent"
-//                border.color: "#21be2b"
-//                radius: 2
-//            }
-
-//            label: Label {
-//                x: control.leftPadding
-////                y: -font.pixelSize
-//                width: control.availableWidth
-//                text: control.title
-//                color: "#21be2b"
-//                elide: Text.ElideRight
-//            }
-
-//            Label {
-//                text: qsTr("Content goes here!")
-//            }
-//        }
-
-//        GroupBox {
-//            id: control_1
-//            title: qsTr("GroupBox")
-//            y: 100
-
-//            background: Rectangle {
-//                y: control_1.topPadding - control_1.bottomPadding
-//                width: parent.width
-//                height: parent.height - control_1.topPadding + control_1.bottomPadding
-//                color: "transparent"
-//                border.color: "#21be2b"
-//                radius: 2
-//            }
-
-//            label: Label {
-//                x: control_1.leftPadding
-//                y: -font.pixelSize
-//                width: control_1.availableWidth
-//                text: control_1.title
-//                color: "#21be2b"
-//                elide: Text.ElideRight
-//            }
-
-//            Label {
-//                text: qsTr("Content goes here!")
-//            }
-//        }
-//    }
+    }
 
     InputPanel {
         id: inputPanel
