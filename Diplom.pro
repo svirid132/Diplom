@@ -1,7 +1,10 @@
 #QT -= gui
 
-QT += quick virtualkeyboard
+QT += qml quick virtualkeyboard
 
+CONFIG += qmltypes
+QML_IMPORT_NAME = CollectionModel
+QML_IMPORT_MAJOR_VERSION = 1
 
 CONFIG += c++11
 #CONFIG -= app_bundle
@@ -13,13 +16,18 @@ CONFIG += c++11
 HEADERS += \
         src/HandlerWavFile/handlerwavfile.h \
         src/MathLogic/MathLogic.h \
+        src/Model/collectionmodel.h \
         src/WafFile/wavfile.h
 
 SOURCES += \
         src/HandlerWavFile/handlerwavfile.cpp \
         src/MathLogic/MathLogic.cpp \
         src/MathLogic/MathLogicFunc.cpp \
+        src/Model/collectionmodel.cpp \
         src/WafFile/wavfile.cpp
+
+INCLUDEPATH += \
+    src/Model #Чтобы запустить программу
 
 test {
     message(Configuring test build...)
@@ -33,6 +41,8 @@ test {
         test/MathLogicTest.cpp
 
 } else {
+
+    TEMPLATE = app
 
     SOURCES += \
             main.cpp\

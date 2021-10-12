@@ -53,23 +53,27 @@ Window {
 //        }
     }
 
-    Rectangle {
-        id: root
+    Collection{
         anchors.fill: parent
-        state: "red_color"
-
-        states: [
-            State {
-                name: "red_color"
-                PropertyChanges { target: root; color: "red" }
-                PropertyChanges { target: flag; state: "FLAG_DOWN"} //Если требуется другого задеть
-            },
-            State {
-                name: "blue_color"
-                PropertyChanges { target: root; color: "blue" }
-            }
-        ]
     }
+
+//    Rectangle {
+//        id: root
+//        anchors.fill: parent
+//        state: "red_color"
+
+//        states: [
+//            State {
+//                name: "red_color"
+//                PropertyChanges { target: root; color: "red" }
+//                PropertyChanges { target: flag; state: "FLAG_DOWN"} //Если требуется другого задеть
+//            },
+//            State {
+//                name: "blue_color"
+//                PropertyChanges { target: root; color: "blue" }
+//            }
+//        ]
+//    }
 
     Button {
         x: 200
@@ -89,10 +93,14 @@ Window {
 //        }
     }
 
-    User {
-        id: user
+//    User {
+//        id: user
+//        anchors.fill: parent
+//        visible: stack.depth == 3
+//    }
+
+    InputData {
         anchors.fill: parent
-        visible: stack.depth == 3
     }
 
     Item {

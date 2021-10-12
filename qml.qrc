@@ -4,5 +4,11 @@
         <file>qml/content/InputHorizontal.qml</file>
         <file>qml/assets/arrow_comboBox.svg</file>
         <file>qml/pages/User.qml</file>
+        <file>qml/pages/InputData.qml</file>
+        <file>qml/content/InputVertical.qml</file>
+        <file>qml/content/MyComboBox.qml</file>
+        <file>qml/content/LineComboBox.qml</file>
+        <file>qml/content/MyButton.qml</file>
+        <file>qml/pages/Collection.qml</file>
     </qresource>
 </RCC>

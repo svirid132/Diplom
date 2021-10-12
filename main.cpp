@@ -4,6 +4,7 @@
 #include <QDir>
 #include "src/WafFile/wavfile.h"
 #include <src/HandlerWavFile/handlerwavfile.h>
+#include <src/Model/collectionmodel.h>
 
 //int main(int argc, char *argv[])
 //{
