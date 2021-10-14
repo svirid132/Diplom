@@ -1,6 +1,6 @@
-#include "collectionmodel.h"
+#include "collectionmodel_.h"
 
-CollectionModel::CollectionModel(QObject *parent) : QAbstractListModel(parent)
+CollectionModel::CollectionModel()
 {
 
 }
@@ -8,6 +8,11 @@ CollectionModel::CollectionModel(QObject *parent) : QAbstractListModel(parent)
 int CollectionModel::rowCount(const QModelIndex & = QModelIndex()) const
 {
     return 200;
+}
+
+int CollectionModel::columnCount(const QModelIndex & = QModelIndex()) const
+{
+    return 5;
 }
 
 QVariant CollectionModel::data(const QModelIndex &index, int role) const
@@ -28,10 +33,4 @@ QHash<int, QByteArray> CollectionModel::roleNames() const
     return {
         { Qt::DisplayRole, "display" }
     };
-}
-
-
-int CollectionModel::columnCount(const QModelIndex &parent) const
-{
-    return 2;
 }

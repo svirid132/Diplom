@@ -16,46 +16,23 @@ Window {
 
     StackView {
         id: stack
-        initialItem: user
-        anchors.fill: parent
-
-//        pushEnter: Transition {
-//            PropertyAnimation {
-//                property: "opacity"
-//                from: 0
-//                to:1
-//                duration: 200
-//            }
-//        }
-//        pushExit: Transition {
-//            PropertyAnimation {
-//                property: "opacity"
-//                from: 1
-//                to:0
-//                duration: 200
-//            }
-//        }
-//        popEnter: Transition {
-//            PropertyAnimation {
-//                property: "opacity"
-//                from: 0
-//                to:1
-//                duration: 200
-//            }
-//        }
-//        popExit: Transition {
-//            PropertyAnimation {
-//                property: "opacity"
-//                from: 1
-//                to:0
-//                duration: 200
-//            }
-//        }
-    }
-
-    Collection{
+        initialItem: collection
         anchors.fill: parent
     }
+
+    Collection {
+        id: collection
+        anchors.fill: parent
+//        collectionModel: MyModel
+        preedModel: MyModel
+        onClicked: console.log(row, column)
+    }
+
+//    TableView {
+//        width: 1000
+//        height: 1000
+//        model: MyModel
+//    }
 
 //    Rectangle {
 //        id: root
@@ -75,23 +52,23 @@ Window {
 //        ]
 //    }
 
-    Button {
-        x: 200
-        y: 200
-        width: 200
-        height: 30
-//        checkable: true
+//    Button {
+//        x: 200
+//        y: 200
+//        width: 200
+//        height: 30
+////        checkable: true
 
-        //onClicked:
-        onClicked: stack.push(user)
-        onCheckedChanged: {//Только для cheked
-            console.log(checked)
-            root.state = checked ? "blue_color" : "red_color"
-        }
-//        onCheckableChanged: {
-//            root.state = checked ? "blue_color" : "red"
+//        //onClicked:
+//        onClicked: stack.push(user)
+//        onCheckedChanged: {//Только для cheked
+//            console.log(checked)
+//            root.state = checked ? "blue_color" : "red_color"
 //        }
-    }
+////        onCheckableChanged: {
+////            root.state = checked ? "blue_color" : "red"
+////        }
+//    }
 
 //    User {
 //        id: user
@@ -99,28 +76,28 @@ Window {
 //        visible: stack.depth == 3
 //    }
 
-    InputData {
-        anchors.fill: parent
-    }
+//    InputData {
+//        anchors.fill: parent
+//    }
 
-    Item {
-        id: comp
-        Button{
-            text: "I buuton"
-        }
-
-        Label {
-            id: label
-            x: 200
-            text: stack.depth
-        }
-
-//        Rectangle {
-//            width: 100
-//            height: 100
-//            color: "black"
+//    Item {
+//        id: comp
+//        Button{
+//            text: "I buuton"
 //        }
-    }
+
+//        Label {
+//            id: label
+//            x: 200
+//            text: stack.depth
+//        }
+
+////        Rectangle {
+////            width: 100
+////            height: 100
+////            color: "black"
+////        }
+//    }
 
     InputPanel {
         id: inputPanel

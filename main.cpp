@@ -19,8 +19,12 @@
 //    return a.exec();
 //}
 
+#include <QDebug>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+
+#include <src/Collection/collectionreader.h>
 
 
 int main(int argc, char *argv[])
@@ -33,14 +37,32 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    //    engine.setInitialProperties({{ "model", QVariant::fromValue(dataList) }}); // Где dataList = QStringList
+
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
+
+    CollectionModel model;
+    QQmlContext *context = engine.rootContext();
+    context->setContextProperty("MyModel", &model);
+//    engine.setInitialProperties({{ "model", QVariant::fromValue(&model) }}); // Где dataList = QStringList
+
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
+//    CollectionReader reader;
+//    if (!reader.loadCollections()) {
+//        reader.createEmptyFile();
+//    }
+
+
+//    reader.createNewCollection();
+//    reader.read();
+//    reader.getCollections();
 
     return app.exec();
 }
