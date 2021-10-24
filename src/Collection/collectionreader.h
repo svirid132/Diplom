@@ -3,8 +3,6 @@
 
 #include "collection.h"
 
-
-
 class CollectionReader
 {
 public:

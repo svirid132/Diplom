@@ -6,6 +6,7 @@ QT += qml quick virtualkeyboard
 #QML_IMPORT_NAME = CollectionModel
 #QML_IMPORT_MAJOR_VERSION = 1
 
+
 CONFIG += c++11
 #CONFIG -= app_bundle
 
@@ -17,6 +18,7 @@ HEADERS += \
         src/Collection/breed.h \
         src/Collection/collection.h \
         src/Collection/collectionreader.h \
+        src/Factory/factorycollection.h \
         src/HandlerWavFile/handlerwavfile.h \
         src/MathLogic/MathLogic.h \
         src/Model/breedsmodel.h \
@@ -29,6 +31,7 @@ SOURCES += \
         src/Collection/breed.cpp \
         src/Collection/collection.cpp \
         src/Collection/collectionreader.cpp \
+        src/Factory/factorycollection.cpp \
         src/HandlerWavFile/handlerwavfile.cpp \
         src/MathLogic/MathLogic.cpp \
         src/MathLogic/MathLogicFunc.cpp \

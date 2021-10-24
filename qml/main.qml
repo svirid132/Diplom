@@ -14,90 +14,90 @@ Window {
     title: qsTr("Hello World")
     color: "#E5E5E5"
 
+//    tableView {
+
+//    }
+
     StackView {
         id: stack
         initialItem: collection
         anchors.fill: parent
+
+        Collection {
+            id: collection
+            anchors.fill: parent
+            onPressAndHold: {
+                contactMenu.open()
+            }
+    //        collectionModel: MyModel
+            preedModel: MyModel
+            onClicked: console.log(row, column)
+        }
     }
 
-    Collection {
-        id: collection
-        anchors.fill: parent
-//        collectionModel: MyModel
-        preedModel: MyModel
-        onClicked: console.log(row, column)
-    }
+    Menu {
+        id: contactMenu
+        x: parent.width / 2 - width / 2
+        y: parent.height / 2 - height / 2
+        modal: true
+        spacing: 5
 
-//    TableView {
-//        width: 1000
-//        height: 1000
-//        model: MyModel
-//    }
-
-//    Rectangle {
-//        id: root
-//        anchors.fill: parent
-//        state: "red_color"
-
-//        states: [
-//            State {
-//                name: "red_color"
-//                PropertyChanges { target: root; color: "red" }
-//                PropertyChanges { target: flag; state: "FLAG_DOWN"} //Если требуется другого задеть
-//            },
-//            State {
-//                name: "blue_color"
-//                PropertyChanges { target: root; color: "blue" }
+        Label {
+            padding: 10
+            font.bold: true
+            width: parent.width
+            horizontalAlignment: Qt.AlignHCenter
+            text: "this"
+        }
+        MenuItem {
+            text: qsTr("Edit...")
+//            font.pixelSize: 20
+//            Text {
+//                text: "Изменить"
+//                anchors.verticalCenter: parent.verticalCenter
+//                x: 10
+//                font.pixelSize: 16
 //            }
-//        ]
-//    }
 
-//    Button {
-//        x: 200
-//        y: 200
-//        width: 200
-//        height: 30
-////        checkable: true
+            background: Rectangle{
+                                implicitWidth: parent.width
+                                implicitHeight: parent.height
+                                color: "#ff9900"
+                                border.width: 2*topWindow.sizeFactor; border.color: "#4c4d4f"
+                            }
+            onTriggered: {
+                console.log("console.log");
+            }
+//            shortcut: "Ctrl+E,Ctrl+W"
+        }
 
-//        //onClicked:
-//        onClicked: stack.push(user)
-//        onCheckedChanged: {//Только для cheked
-//            console.log(checked)
-//            root.state = checked ? "blue_color" : "red_color"
-//        }
-////        onCheckableChanged: {
-////            root.state = checked ? "blue_color" : "red"
-////        }
-//    }
+        MenuSeparator {}
 
-//    User {
-//        id: user
-//        anchors.fill: parent
-//        visible: stack.depth == 3
-//    }
+        MenuItem {
+            height: 30
+            Text {
+                text: "Удалить"
+                color: "red"
+                anchors.verticalCenter: parent.verticalCenter
+                x: 10
+                font.pixelSize: 16
+            }
+            onTriggered: contactView.model.remove(currentContact)
+        }
 
-//    InputData {
-//        anchors.fill: parent
-//    }
+        MenuSeparator {}
 
-//    Item {
-//        id: comp
-//        Button{
-//            text: "I buuton"
-//        }
+        Button {
+            width: 200
+            height: 50
+            palette.button: "red"
+            onClicked: {
+                contactMenu.close()
+            }
+        }
+    }
 
-//        Label {
-//            id: label
-//            x: 200
-//            text: stack.depth
-//        }
 
-////        Rectangle {
-////            width: 100
-////            height: 100
-////            color: "black"
-////        }
-//    }
 
     InputPanel {
         id: inputPanel

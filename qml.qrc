@@ -10,5 +10,13 @@
         <file>qml/content/LineComboBox.qml</file>
         <file>qml/content/MyButton.qml</file>
         <file>qml/pages/Collection.qml</file>
+        <file>qml/content/tableView.qml</file>
+        <file>qml/content/Collection.ui.qml</file>
+        <file>qml/content/CollectionDelegate.ui.qml</file>
+        <file>qml/content/BreedHeaderModel.qml</file>
+        <file>qml/content/BreedHeaderDelegate.ui.qml</file>
+        <file>qml/content/BreedTableModel.qml</file>
+        <file>qml/content/BreedTableDelegate.ui.qml</file>
+        <file>qml/content/tableExample.ui.qml</file>
     </qresource>
 </RCC>

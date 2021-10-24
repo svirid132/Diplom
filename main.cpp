@@ -26,6 +26,8 @@
 
 #include <src/Collection/collectionreader.h>
 
+#include <src/Factory/factorycollection.h>
+
 
 int main(int argc, char *argv[])
 {
@@ -38,6 +40,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     //    engine.setInitialProperties({{ "model", QVariant::fromValue(dataList) }}); // Где dataList = QStringList
+
+    qmlRegisterType<FactoryCollection>("Backend", 1, 0, "FactoryCollection");
+
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
@@ -53,6 +58,7 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
 
 //    CollectionReader reader;
 //    if (!reader.loadCollections()) {

@@ -41,6 +41,7 @@ void CollectionReader::createNewCollection()
 //    json["breeds"] = array;
 
     saveFile.write(QJsonDocument(json).toJson());
+    saveFile.close();
 }
 
 bool CollectionReader::createEmptyFile()
@@ -50,6 +51,7 @@ bool CollectionReader::createEmptyFile()
         qWarning("Невозможно создать пустой файл save.json");
         return false;
     }
+    saveFile.close();
     return true;
 }
 
@@ -76,6 +78,8 @@ bool CollectionReader::loadCollections()
             collections.append(collection);
         }
     }
+
+    saveFile.close();
     return true;
 }
 
@@ -97,5 +101,6 @@ bool CollectionReader::saveCollections()
     json["collections"] = array;
 
     saveFile.write(QJsonDocument(json).toJson());
+    saveFile.close();
     return true;
 }

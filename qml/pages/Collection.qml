@@ -6,8 +6,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.3
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
-
-//import CollectionModel 1.0
+import Backend 1.0
 
 Item {
 
@@ -15,12 +14,17 @@ Item {
 //    property alias collectionModel: table.model
     property alias preedModel: list.model
     signal clicked(int row, int column)
+    signal pressAndHold()
+
+    FactoryCollection {
+        id: logic
+    }
 
     Item {
         id: collection
         x: 55
         y: 118
-        width: 244
+
         Column {
             Rectangle {
                 id: listHeader
@@ -39,7 +43,24 @@ Item {
             ListView {
                 id: list
                 height: 478
-                width: collection.width
+                width: 100
+                clip: true
+
+                RoundButton {
+                    text: qsTr("+")
+                    highlighted: true
+                    anchors.margins: 10
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    palette.button: "red"
+                    onClicked: {
+//                        for(let prop in logic) {
+//                            console.log(prop);
+//                        }
+                        logic.getDebug()
+                    }
+                }
+
                 delegate: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 50
@@ -48,33 +69,14 @@ Item {
                     }
                     MouseArea{
                         anchors.fill: parent
-                        onClicked: root.clicked(row, column)
+//                        onClicked: root.clicked(row, column)
+                        onPressAndHold: {
+                            root.pressAndHold()
+                        }
                     }
                 }
             }
         }
     }
-
-//    TableView {
-//        id: table
-//        x: 298
-//        y: 212
-//        anchors.fill: parent
-//        columnSpacing: 1
-//        rowSpacing: 1
-//        clip: true
-
-//        delegate: Rectangle {
-//            implicitWidth: 218
-//            implicitHeight: 36
-//            Text {
-//                text: display
-//            }
-//            MouseArea{
-//                anchors.fill: parent
-//                onClicked: root.clicked(row, column)
-//            }
-//        }
-//    }
 
 }

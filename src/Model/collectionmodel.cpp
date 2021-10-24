@@ -7,14 +7,20 @@ CollectionModel::CollectionModel(QObject *parent) : QAbstractListModel(parent)
 
 int CollectionModel::rowCount(const QModelIndex & = QModelIndex()) const
 {
-    return 200;
+    return names.length();
 }
+
+int CollectionModel::columnCount(const QModelIndex&) const
+{
+    return 1;
+}
+
 
 QVariant CollectionModel::data(const QModelIndex &index, int role) const
 {
     switch (role) {
     case Qt::DisplayRole:
-        return QString("%1, %2").arg(index.column()).arg(index.row());
+        return names[index.row()];
     default:
         break;
     }
@@ -26,12 +32,6 @@ QVariant CollectionModel::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> CollectionModel::roleNames() const
 {
     return {
-        { Qt::DisplayRole, "display" }
+        { Qt::DisplayRole, "display" }//For qt and qml
     };
-}
-
-
-int CollectionModel::columnCount(const QModelIndex &parent) const
-{
-    return 2;
 }
